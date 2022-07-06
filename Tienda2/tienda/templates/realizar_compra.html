@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+{% block titulo %} Realizar compra {% endblock %}
+{% block content %}
+    <div class="container">
+        <h3>Realizar compra</h3>
+        <p>Porfavor introduce tus datos para realizar la compra</p>
+        <p>cantidadAPagar: es el monto con el que el cliente va a pagar y realizar la compra</p>
+        <h2 class="text-white">.</h2>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <table class="table table-striped">
+            {{mform}}
+        </table>
+        <button class="btn btn-info">Pagar</button>
+    </form>
+{% endblock %}

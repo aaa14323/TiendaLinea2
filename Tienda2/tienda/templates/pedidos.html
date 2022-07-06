@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+{% block titulo %} Pedidos {% endblock %}
+{% block content %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Direccion</th>
+                <th>Producto</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cl in cliente %}
+                <tr>
+                    <td>{{cl.direccion}}</td>
+                </tr>
+            {% endfor %} 
+        </tbody>
+    </table>
+{% endblock %}

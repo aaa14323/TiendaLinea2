@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block title %}<title>Ferreteria</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+{% if user.is_authenticated %}
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #27c9c9;">
+    <img src="https://images.vexels.com/media/users/3/139424/isolated/preview/03b21f695cbbec990528d0ba9378f7c0-corregir-la-configuracion-de-herramientas-de-reparacion.png" width="50px" height="50px">
+    <a class="navbar-brand" href="{% url 'index' %}">Ferreteria</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'pedidos' %}">Pedidos</a>
+        </li>
+        <li class="nav-item active">
+          <a href="{% url 'lista-compra' %}" class="btn btn-info">Iniciar a comprar</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+{% endif %}
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2">
+      {% block sidebar %}
+
+        {% if user.is_authenticated %}
+          <ul class="sidebar-nav">
+            <li>User: {{ user.get_username }}</li>
+            <a href="{% url 'logout'%}?next={{request.path}}" class="btn btn-outline-info">Salir</a>
+            {% else %}
+              <a href="{% url 'login'%}?next={{request.path}}" class="btn btn-secondary btn-lg btn-block">Iniciar sesion</a>
+            {% endif %}
+          </ul>
+
+        {% if user.is_staff %}
+          <hr />
+          <ul class="sidebar-nav">
+          <li><a href="{% url 'producto-admin' %}">Administrar Productos</a></li>
+          {% if perms.tienda.can_mark_returned %}
+           <li><a href="#"></a></li>
+          {% endif %}
+          </ul>
+         {% endif %}
+     {% endblock %}
+      </div>
+      <div class="col-sm-10 ">{% block content %}{% endblock %} 
+        {% block pagination %}
+          {% if is_paginated %}
+              <div class="pagination">
+                  <span class="page-links">
+                      {% if page_obj.has_previous %}
+                          <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}"></a>
+                      {% endif %}
+                      <span class="page-current">
+                          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                      </span>
+                      {% if page_obj.has_next %}
+                          <a href="{{ request.path }}?page={{ page_obj.next_page_number }}"></a>
+                      {% endif %}
+                  </span>
+              </div>
+          {% endif %}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+</body>
+</html>

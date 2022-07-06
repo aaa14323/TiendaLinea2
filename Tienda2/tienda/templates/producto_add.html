@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+{% block titulo %} Agregar producto {% endblock %}
+{% block content %}
+    <div class="container">
+        <h3>Agregar un nuevo Producto</h3>
+        <h2 class="text-white">.</h2>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <table class="table table-striped">
+            {{mform}}
+        </table>
+        <button class="btn btn-info">Agregar</button>
+    </form>
+{% endblock %}

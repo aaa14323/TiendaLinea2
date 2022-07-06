@@ -1,0 +1,46 @@
+{% extends "base_generic.html" %}
+{% block titulo %} Productos {% endblock %}
+{% block content %}
+    <div class="container">
+      <table class="table">
+        <tr>
+          <td>
+            <h2>Ferreteria: productos a la venta</h2>
+          </td>
+          <td>
+            <a href="{% url 'boton-pagar' %}" class="btn btn-secondary btn-lg">Pagar</a>
+            <h3 class="text-white">.</h3>
+          </td>
+        </tr>
+      </table>
+    </div>
+    
+    {% for pr in producto %}
+      <div class="card border-primary mb-3" style="width: 18rem;">
+        <img class="card-img-top" src="{{ pr.imagen.url }}" alt="Card image cap" width="286px" height="180px">
+        <div class="card-body">
+          <h5 class="card-title">{{pr.nombre}}</h5>
+          <p class="card-text">${{pr.precio}}</p>
+          <p class="card-text">Cantidad disponibles: {{pr.piezas}}</p>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                <label class="form-check-label" for="flexCheckDefault">Selecciona para comprar</label>
+              </div>
+            </div>
+          </div>
+          <form method="POST">
+            {% csrf_token %}
+            <table class="table table-striped">
+                {{mform}}
+            </table>
+            <button class="btn btn-info">Agregar</button>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+{% endblock %}
+
+
+

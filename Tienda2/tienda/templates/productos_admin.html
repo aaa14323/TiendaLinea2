@@ -1,0 +1,30 @@
+{% extends "base_generic.html" %}
+{% block titulo %} Administracion de Productos {% endblock %}
+{% block content %}
+    <h2>Administracion de Productos</h2>
+    <p>Esta vista solo la puede ver el usuario administrador.
+        Aquí se puede editar, eliminar o agregar un nuevo producto
+    </p>
+    <table class="table table-hover">
+        <thead>
+            <a href="{% url 'producto-add' %}" class="btn btn-info">Agregar Producto</a>
+            <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in producto %}
+                <tr>
+                    <td><img src="{{ p.imagen.url }}" ></td>
+                    <td>${{p.precio}}</td>
+                    <td>
+                        <a href="{% url 'update-producto' p.id %}" class="btn btn-success"> Editar</a>
+                        <a href="{% url 'delete-producto' p.id %}" class="btn btn-danger"> Eliminar</a>
+                    </td>
+                </tr>
+            {% endfor %} 
+        </tbody>
+    </table>
+{% endblock %}

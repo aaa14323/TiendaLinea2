@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+{% block titulo %} Pagar {% endblock %}
+{% block content %}
+    <h2>Vista para pagar</h2>
+    <p>Al dar clic en pagar introduce tus datos</p>
+    <h3 class="text-white">.</h3>
+    <div class="card">
+      <h5 class="card-header">Compras a realizar</h5>
+      <div class="card-body">
+        <p class="card-text">Total a pagar:</p>
+        <a href="{% url 'realizar-compra' %}" class="btn btn-warning">Pagar compras</a>
+      </div>
+    </div>
+{% endblock %}
