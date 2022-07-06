@@ -1,0 +1,11 @@
+Usuario staff:
+-------------------
+Usuario:	admin143
+Contraseña: 	1234aadd
+-------------------
+
+Usuarios normales:
+-------------------
+Usuario:	usuario2
+Contraseña: 	uussuu22
+-------------------
